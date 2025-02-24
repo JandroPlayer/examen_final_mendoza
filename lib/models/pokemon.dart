@@ -10,7 +10,7 @@ import 'dart:convert';
 }
 */
 class Pokemon {
-  String? id;
+  int? id;
   String name;
   String tipus;
   String descripcio;  
@@ -53,7 +53,7 @@ class Pokemon {
       );
 
   Pokemon copyWith({
-    String? id,
+    int? id,
     String? name,
     String? tipus,
     String? descripcio,

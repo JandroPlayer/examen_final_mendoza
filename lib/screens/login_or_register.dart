@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:examen_final_mendoza/providers/login_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/* Pantalla de login per a accedir a homescreen amb firebase amb shared preferences */
 class LoginOrRegisterScreen extends StatefulWidget {
   @override
   _LoginOrRegisterScreenState createState() => _LoginOrRegisterScreenState();
@@ -34,7 +35,6 @@ class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen>
     );
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
-    //Descomentar las siguientes lineas para generar un efecto de "respiracion"
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         controller.reverse();

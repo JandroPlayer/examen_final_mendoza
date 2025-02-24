@@ -1,45 +1,28 @@
-import 'dart:convert';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
-// Aquesta es la classe ScanModel que defineix el model de les dades que es guardaran a la base de dades
 class ScanModel {
-  int? id;
-  String? tipus;
+  int id;
   String valor;
 
+  ScanModel({
+    required this.id,
+    required this.valor,
+  });
+
   LatLng getLatLng() {
-    final latLng = this.valor.substring(4).split(',');
+    final latLng = valor.split(',');
     final lat = double.parse(latLng[0]);
     final lng = double.parse(latLng[1]);
-
     return LatLng(lat, lng);
   }
 
-  ScanModel({
-    this.id,
-    this.tipus,
-    required this.valor,
-  }) {
-    if (this.valor.contains('http')) {
-      this.tipus = 'http';
-    } else {
-      this.tipus = 'geo';
-    }
-  }
-
-  factory ScanModel.fromJson(String str) => ScanModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory ScanModel.fromMap(Map<String, dynamic> json) => ScanModel(
+  factory ScanModel.fromJson(Map<String, dynamic> json) => ScanModel(
         id: json["id"],
-        tipus: json["tipus"],
         valor: json["valor"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
-        "tipus": tipus,
         "valor": valor,
       };
 }

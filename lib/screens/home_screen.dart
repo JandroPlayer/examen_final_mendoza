@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: pokemonService.fetchPokemons(),
+        future: pokemonService.loadPokemons(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         onDismissed: (direction) {
                           if (pokemons.length < 2) {
-                            pokemonService.fetchPokemons();
+                            pokemonService.loadPokemons();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text('No es pot esborrar tots els elements!')));
                           } else {
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
             heroTag: 'addPokemon',
             onPressed: () {
               pokemonService.tempPokemon = Pokemon(
-                id: '2',
+                id: 2,
                 name: 'Pikachu',
                 tipus: 'Electric',
                 descripcio: 'A yellow electric Pokémon',

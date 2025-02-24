@@ -6,7 +6,7 @@ import '../models/scan_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart'; // Import GoogleMap and LatLng
 
 
-// usa tambien ipinfo.io/188.86.28.212/geo
+// Aquesta és la pantalla que mostra el mapa amb la ubicació de la ip pública del nostre dispositiu
 class MapaScreen extends StatefulWidget {
   const MapaScreen({Key? key}) : super(key: key);
 
