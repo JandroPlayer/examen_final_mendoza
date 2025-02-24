@@ -1,9 +1,6 @@
 import 'package:examen_final_mendoza/services/services.dart';
 import 'package:examen_final_mendoza/widgets/pokemon_photo.dart';
-
-import '../services/user_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../ui/input_decorations.dart';
 import '../widgets/widgets.dart';
@@ -13,16 +10,16 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userForm = Provider.of<UserService>(context, listen: false);
+    final pokemonService = Provider.of<PokemonService>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail Screen'),
       ),
-      body: _UserForm(),
+      body: _PokemonForm(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (userForm.isValidForm()) {
-            userForm.saveOrCreateUser();
+          if (pokemonService.isValidForm()) {
+            pokemonService.saveOrCreatePokemon();
             Navigator.of(context).pop();
           }
         },
@@ -32,11 +29,11 @@ class DetailScreen extends StatelessWidget {
   }
 }
 
-class _UserForm extends StatelessWidget {
+class _PokemonForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final userForm = Provider.of<PokemonService>(context);
-    var tempUser = userForm.tempUser;
+    final pokemonService = Provider.of<PokemonService>(context);
+    var tempPokemon = pokemonService.tempPokemon;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -45,17 +42,17 @@ class _UserForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
-          key: userForm.formKey,
+          key: pokemonService.formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               SizedBox(height: 10),
-              PokemonPhoto(photoUrl: tempUser.photo, radius: 60), // Display photo if it's valid
+              PokemonPhoto(photoUrl: tempPokemon?.photo ?? '', radius: 60), // Display photo if it's valid
               SizedBox(height: 20), // Espacio entre la foto y el primer campo
               TextFormField(
-                initialValue: tempUser.name,
+                initialValue: tempPokemon?.name ?? '',
                 onChanged: (value) {
-                  userForm.updateTempUser(tempUser.copyWith(name: value));
+                  pokemonService.updateTempPokemon(tempPokemon!.copyWith(name: value));
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -68,54 +65,39 @@ class _UserForm extends StatelessWidget {
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: tempUser.email,
+                initialValue: tempPokemon?.tipus ?? '',
                 onChanged: (value) {
-                  userForm.updateTempUser(tempUser.copyWith(email: value));
+                  pokemonService.updateTempPokemon(tempPokemon!.copyWith(tipus: value));
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'El email es obligatorio';
+                    return 'El tipo es obligatorio';
                   }
                   return null;
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Email', labelText: 'Email:'),
+                    hintText: 'Tipo', labelText: 'Tipo:'),
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: tempUser.phone,
+                initialValue: tempPokemon?.descripcio ?? '',
                 onChanged: (value) {
-                  userForm.updateTempUser(tempUser.copyWith(phone: value));
+                  pokemonService.updateTempPokemon(tempPokemon!.copyWith(descripcio: value));
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'El teléfono es obligatorio';
+                    return 'La descripción es obligatoria';
                   }
                   return null;
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Teléfono', labelText: 'Teléfono:'),
+                    hintText: 'Descripción', labelText: 'Descripción:'),
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: tempUser.address,
+                initialValue: tempPokemon?.photo ?? '',
                 onChanged: (value) {
-                  userForm.updateTempUser(tempUser.copyWith(address: value));
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'La dirección es obligatoria';
-                  }
-                  return null;
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Dirección', labelText: 'Dirección:'),
-              ),
-              SizedBox(height: 30),
-              TextFormField(
-                initialValue: tempUser.photo,
-                onChanged: (value) {
-                  userForm.updateTempUser(tempUser.copyWith(photo: value));
+                  pokemonService.updateTempPokemon(tempPokemon!.copyWith(photo: value));
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {

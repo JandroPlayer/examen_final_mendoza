@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:examen_final_mendoza/screens/screens.dart';
 import 'package:examen_final_mendoza/services/services.dart';
-import 'package:examen_practic_sim/providers/providers.dart';
+import 'package:examen_final_mendoza/providers/providers.dart';
 import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserService()),
+        ChangeNotifierProvider(create: (_) => PokemonService()),
         ChangeNotifierProvider(create: (_) => LoginProvider()),
       ],
       child: MaterialApp(
@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           'home': (context) => HomeScreen(),
           'logOrReg': (context) => LoginOrRegisterScreen(),
           'detail': (_) => DetailScreen(),
+          'mapa' : (_) => MapaScreen(),
         },
         initialRoute: '/',
       ),
